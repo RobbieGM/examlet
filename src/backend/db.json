@@ -1,0 +1,107 @@
+{
+  "accounts": [
+    {
+      "userId": "104733683581571949223",
+      "domain": "chelsea.k12.mi.us",
+      "email": "1moorer@chelsea.k12.mi.us",
+      "profilePicture": "https://lh6.googleusercontent.com/-losA6wL6xH0/AAAAAAAAAAI/AAAAAAAAABw/5D6-ivJ58VA/s96-c/photo.jpg",
+      "name": "Robert Moore",
+      "accountType": "student",
+      "cookie": "d1826385de3d2e109afdf3424249bbb1",
+      "teachers": [
+        "108514635790655277477"
+      ]
+    },
+    {
+      "userId": "108514635790655277477",
+      "email": "rgm020103@gmail.com",
+      "profilePicture": "https://lh3.googleusercontent.com/-JlV3RGer6IA/AAAAAAAAAAI/AAAAAAAABA8/idMsalJ34Zg/s96-c/photo.jpg",
+      "name": "Robert Moore",
+      "accountType": "teacher",
+      "cookie": "c1113eb2615ace2a5892f3d934915e1e",
+      "teachers": []
+    }
+  ],
+  "examPreviews": [
+    {
+      "examId": "fk928j3efa",
+      "name": "Repaso de Mini Cuento",
+      "teacherId": "108514635790655277477",
+      "timesTaken": 13,
+      "averageScore": 0.98,
+      "open": false
+    },
+    {
+      "examId": "298jf99a9ds",
+      "name": "Shakespeare Review 2",
+      "teacherId": "108514635790655277477",
+      "timesTaken": 23,
+      "averageScore": 0.96,
+      "open": true
+    },
+    {
+      "examId": "a99sbsz0m2",
+      "name": "Chapter 6.2.3 HW Check",
+      "teacherId": "108514635790655277477",
+      "timesTaken": 19,
+      "averageScore": 0.88,
+      "open": true
+    },
+    {
+      "examId": "9mx88a9fajl",
+      "name": "Evolution Quiz",
+      "teacherId": "108514635790655277477",
+      "timesTaken": 30,
+      "averageScore": 1,
+      "open": false
+    },
+    {
+      "examId": "9xjkj21lk2jl",
+      "name": "Mindfulness Unit Test",
+      "teacherId": "108514635790655277477",
+      "timesTaken": 15,
+      "averageScore": 0.91,
+      "open": false
+    }
+  ],
+  "examQuestions": {
+    "a99sbsz0m2": [
+      {
+        "title": "What is x times x?",
+        "type": "multiple-choice",
+        "choices": [
+          "2x",
+          "x^x",
+          "x",
+          "x^2"
+        ],
+        "answer": "x^2"
+      },
+      {
+        "title": "What is 135 degrees in radians?",
+        "type": "text",
+        "answer": "5pi/4"
+      },
+      {
+        "title": "True or false: my one rule is that you should treat me the way you want to be treated",
+        "type": "true-or-false",
+        "answer": "true"
+      },
+      {
+        "title": "What is 3pi/2 radians in degrees?",
+        "type": "text",
+        "answer": "270"
+      },
+      {
+        "title": "What is the y-intercept of the function (x-2)(x+3)^2?",
+        "type": "text",
+        "answer": "-18"
+      },
+      {
+        "title": "Y = plus or minus x is a function",
+        "type": "true-or-false",
+        "answer": "false"
+      }
+    ]
+  }
+}

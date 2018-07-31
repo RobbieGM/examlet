@@ -1,0 +1,35 @@
+@import './variables';
+
+input[type='text'] {
+	appearance: none;
+	-webkit-appearance: none;
+	outline: none;
+	padding: 8px;
+	background: $bkg;
+	border: none;
+	font-family: inherit;
+	font-size: 1rem;
+	transition: background 0.2s $ease;
+	&:focus {
+		background: $bkg-light;
+	}
+}
+
+input[type='radio'] { display: none }
+input[type='radio'] + label::before {
+	content: '';
+	display: inline-block;
+	vertical-align: bottom;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 99px;
+	background: $bkg;
+	border: 0 solid $bkg;
+	box-sizing: border-box;
+	margin-right: 4px;
+}
+
+input[type='radio']:checked + label::before {
+	transition: border 0.2s $ease;
+	border: 0.4rem solid $accent2;
+}

@@ -1,0 +1,30 @@
+$accent2: #ee4266;
+$accent2-dark: #ba2847;
+$accent2-light: #ffcbd6;
+$accent: #ffd23f;
+$accent-light: #fff273;
+$accent-dark: #f0b109;
+$bkg: #e5e5e5;
+$bkg-light: #fafafa;
+$text: #333333;
+$text-light: #707070;
+$ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+@mixin card {
+	flex: 1;
+	flex-basis: 360px;
+	background: $bkg-light;
+	padding: 16px;
+	margin: 8px;
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.05);
+	border-radius: 3px;
+	h3 {
+		margin-top: 0;
+	}
+}
+
+@mixin profile-picture($size: 48px) {
+	width: $size;
+	height: $size;
+	border-radius: 999px;
+}
