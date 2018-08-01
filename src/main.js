@@ -23,13 +23,14 @@ var root = new Vue({
     user: {}
   },
   render: function(h) {
-		return h(App, {
-			props: {
-				isLoggedIn: this.isLoggedIn,
-				user: this.user,
-				accountTypeSpecificAppLoaded: this.accountTypeSpecificAppLoaded
-			}
-		});
+	return h(App, {
+		props: {
+			isLoggedIn: this.isLoggedIn,
+			user: this.user,
+			accountTypeSpecificAppLoaded: this.accountTypeSpecificAppLoaded
+		},
+		ref: 'app'
+	});
   }
 });
 root.$mount('#app');

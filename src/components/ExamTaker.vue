@@ -191,7 +191,7 @@
 			async handIn() {
 				let questionsLeft = this.questions.length - this.questionsAnswered();
 				if (questionsLeft > 0) {
-					let choice = await this.$root.showDialog(`You still have ${questionsLeft} questions unanswered on your test. Are you sure you want to hand it in?`, ['Cancel', 'OK']);
+					let choice = await this.$root.$refs.app.showDialog(`You still have ${questionsLeft} questions unanswered on your test. Are you sure you want to hand it in?`, ['Cancel', 'OK']);
 					if (choice == 'Cancel') return;
 				}
 				socket.emit('handIn', {

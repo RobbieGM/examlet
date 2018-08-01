@@ -94,7 +94,7 @@ export default {
 				this.modalDialog.onDismiss = buttonText => res(buttonText);
 			});
 		},
-		dismissDialog: historyManager.backButtonCallable('modal-dialog', result => {
+		dismissDialog: historyManager.backButtonCallable('modal-dialog', function(result) {
 			this.modalDialog.visible = false;
 			this.hideModalOverlay();
 			this.modalDialog.onDismiss(result);
@@ -114,14 +114,7 @@ export default {
 		},
 		percentage,
 		signUp,
-		sendEmail,
-		// startExam(exam) {
-		// 	socket.emit('startExam', exam.examId);
-		// 	this.fullscreenExam.examTakerActive = true;
-		// },
-		// hostExam() {
-		// 	socket.emit('hostExam');
-		// }
+		sendEmail
 	},
 	components: {LandingPage},
 	mounted() {

@@ -31,7 +31,7 @@
 				<h3>Stats</h3>
 				<p>Feature does not exist yet.</p>
 			</div>
-			<exam-taker v-if='accountType == "student" && loadedExamTaker && renderExamTaker' :questions='fullscreenExam.questions' :exam='fullscreenExam.examObj' :fullscreen='fullscreenExam.examTakerActive' @close-exam-taker='closeExamTaker()'></exam-taker>
+			<exam-taker v-if='accountType == "student" && loadedExamTaker' :questions='fullscreenExam.questions' :exam='fullscreenExam.examObj' :fullscreen='fullscreenExam.examTakerActive' @close-exam-taker='closeExamTaker()'></exam-taker>
 		</div>
 	</div>
 </template>
@@ -169,8 +169,7 @@
 				styles: {},
 				questions: []
 			},
-			loadedExamTaker: false,
-			renderExamTaker: true
+			loadedExamTaker: false
 		}),
 		methods: {
 			percentage,
@@ -211,13 +210,11 @@
 				}, 300);
 			}),
 			startExam(exam) {
-				this.renderExamTaker = true;
 				this.fullscreenExam.examTakerActive = true;
 				socket.emit('startExam', exam.examId);
 			},
 			closeExamTaker() {
 				this.fullscreenExam.examTakerActive = false;
-				//setTimeout(() => this.renderExamTaker = false, 300);
 			},
 			hostExam() {
 				socket.emit('hostExam', this.fullscreenExam.examObj.examId);

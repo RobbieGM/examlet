@@ -30,16 +30,19 @@ export function authenticate(onUpdate, onFail, timeout=5000) {
 		});
 		function onStateChange(isSignedIn) {
 			if (isSignedIn) {
+				console.log('logged-in-ness state changed and is logged in');
 				verifyGoogleAccount(successful);
 			} else {
 				// don't unset user, the cookie can still keep us logged in
 			}
 		}
 		function onUserChange(/*user*/) {
-			verifyGoogleAccount(successful);
+			if (auth2.isSignedIn.get())
+				verifyGoogleAccount(successful);
 		}
 		auth2.then(() => { // waits for response
 			if (!auth2.isSignedIn.get()) {
+				console.log('not signed in with google');
 				rejectedSchemes.add('google');
 				checkForAllRejected();
 			}
