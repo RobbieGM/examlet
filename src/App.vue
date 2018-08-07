@@ -20,7 +20,7 @@
         <div v-if='user.domain' class='user-domain'>{{ user.domain }}</div>
       </div>
       <div id='option-container'>
-        <div v-for='[icon, text, callback] in appDrawerOptions' @click='callback.bind(this)()' :key='text'>
+        <div v-for='[icon, text, callback] in appDrawerOptions' @click='callback.bind(getSelf())()' :key='text'>
           <span class='material-icons'>{{ icon }}</span>{{ text }}
         </div>
       </div>
@@ -84,6 +84,7 @@ export default {
 		]
 	}),
 	methods: {
+		getSelf() { return this; },
 		showDialog(content, buttons=['OK']) {
 			historyManager.pushState('modal-dialog');
 			this.modalDialog.content = content;

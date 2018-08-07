@@ -38,19 +38,17 @@
 .exam-taker {
 	overflow-y: auto;
 	position: fixed;
-	top: 0;
+	top: 100vh;
 	left: 0;
 	right: 0;
-	bottom: 0;
-	transform-origin: center;
-	transform: translateY(100%);
-	box-shadow: none;
+	bottom: -100vh;
 	transition: all 0.3s ease-in;
+	will-change: top, bottom;
 	background: $bkg-light;
 	&.fullscreen {
-		transform: none;
+		top: 0;
+		bottom: 0;
 		transition: all 0.3s ease-out;
-		box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
 	}
 }
 
@@ -124,6 +122,11 @@
 	transform: none;
 }
 
+.exam-taker:not(.fullscreen) .scores-container {
+	transition: transform 0.3s ease-in;
+	transform: translateY(100vh);
+}
+
 .hand-in {
 	display: block;
 	margin: 8px auto;
@@ -165,19 +168,32 @@
 	import ProgressBar from './ProgressBar.vue';
 	import ExamQuestion from './ExamQuestion.vue';
 	import {socket, percentage} from '../client-lib/global.js';
+	import {historyManager} from '../client-lib/history.js';
 
 	export default {
-		props: ['questions', 'fullscreen', 'exam'],
+		props: ['questions', 'fullscreen', 'exam', 'hasStartedExam'],
 		data: () => ({
 			progress: 0,
 			graded: false,
 			quip: 'See you next test!'
 		}),
+		computed: {
+			mustContinueTest() { return this.fullscreen && this.hasStartedExam && !this.graded }
+		},
+		watch: {
+			mustContinueTest(val) {
+				window.onbeforeunload = val ? () => true : null; // If beforeunload returns true, browser will prompt before leaving
+			}
+		},
 		methods: {
 			percentage,
-			stopExam() {
-				this.$emit('close-exam-taker');
-			},
+			stopExam: historyManager.backButtonCallable('taking-exam', async function() {
+				let shouldExit = !this.mustContinueTest || await this.$root.$refs.app.showDialog(`If you exit, you will fail the test and will not be able to take it again. Are you sure you want to exit?`, ['Cancel', 'Exit']) == 'Exit';
+				if (shouldExit) {
+					this.$emit('close-exam-taker');
+					historyManager.backWithoutTriggeringCallback();
+				}
+			}, true),
 			getResponses() {
 				return this.$children.filter(child => !!child.question /* exclude progress bar */).map(child => child.answer);
 			},

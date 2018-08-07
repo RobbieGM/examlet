@@ -4,7 +4,7 @@ import Sheet from './components/SheetComponent.vue';
 import LandingPage from './components/LandingPage.vue';
 import {authenticate} from './client-lib/gapi.js';
 import SocketMixin from './client-lib/socket-mixin.js';
-import {HistoryMixin} from './client-lib/history.js';
+import {historyManager, HistoryMixin} from './client-lib/history.js';
 
 /* global iNoBounce */
 
@@ -16,6 +16,8 @@ Vue.component('landing-page', LandingPage);
 Vue.component('null-component', {
 	template: '<span style="display: none"></span>' // vue doesn't let it be empty
 });
+
+window.historyManager = historyManager;
 
 var root = new Vue({
   data: {

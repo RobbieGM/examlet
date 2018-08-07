@@ -31,7 +31,7 @@
 				<h3>Stats</h3>
 				<p>Feature does not exist yet.</p>
 			</div>
-			<exam-taker v-if='accountType == "student" && loadedExamTaker' :questions='fullscreenExam.questions' :exam='fullscreenExam.examObj' :fullscreen='fullscreenExam.examTakerActive' @close-exam-taker='closeExamTaker()'></exam-taker>
+			<exam-taker v-if='accountType == "student" && loadedExamTaker' :questions='fullscreenExam.questions' :exam='fullscreenExam.examObj' :fullscreen='fullscreenExam.examTakerActive' @close-exam-taker='closeExamTaker()' :has-started-exam='fullscreenExam.hasStartedExam'></exam-taker>
 		</div>
 	</div>
 </template>
@@ -80,7 +80,7 @@
 	margin: 0;
 	z-index: 2;
 	transition: all 0.2s $ease;
-	will-change: top, left, width, height;
+	will-change: top, left, width, height;//, box-shadow;
 	cursor: auto;
 	overflow-y: overlay;
 	overflow-x: hidden;
@@ -91,6 +91,7 @@
 		padding: 1em;
 		position: relative;
 	}
+	.stagger-transition > * { will-change: opacity, transform }
 	&.animating-out, &.animating-in {
 		overflow-y: hidden;
 	}	
@@ -111,7 +112,7 @@
 		opacity: 1;
 	}
 	&.active {
-		box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+		// box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
 		visibility: visible;
 		top: 0 !important;
 		left: 0 !important;
@@ -167,7 +168,8 @@
 				},
 				examTakerActive: false,
 				styles: {},
-				questions: []
+				questions: [],
+				hasStartedExam: false
 			},
 			loadedExamTaker: false
 		}),
@@ -175,8 +177,9 @@
 			percentage,
 			getParentUntilMatches,
 			async openExam(event, examObj) {
+				this.resetExamTaker();
 				const fse = $('fullscreen-exam');
-				let delay = 50;
+				let delay = 50; // rendering delay bug fix
 				let examElt = this.getParentUntilMatches(event.target, '.exam');
 				let bounds = examElt.getBoundingClientRect();
 				fse.classList.add('no-transition');
@@ -186,14 +189,20 @@
 				this.$forceUpdate();
 				this.fullscreenExam.examObj = examObj;
 				fse.classList.add('animating-in');
-				historyManager.pushState('fullscreen-exam');
-				preventScroll();
+				requestAnimationFrame(() => {
+					historyManager.pushState('fullscreen-exam');
+					preventScroll();
+				});
 				await sleep(delay);
 				fse.classList.remove('no-transition');
 				fse.classList.add('active');
 				events.emit('hideHeader');
 				await sleep(200 - delay);
 				fse.classList.remove('animating-in');
+			},
+			resetExamTaker() {
+				this.fullscreenExam.questions = [];
+				this.fullscreenExam.hasStartedExam = false;
 			},
 			closeFullscreenExam: historyManager.backButtonCallable('fullscreen-exam', () => {
 				const fse = $('fullscreen-exam');
@@ -210,11 +219,14 @@
 				}, 300);
 			}),
 			startExam(exam) {
+				historyManager.pushState('taking-exam');
 				this.fullscreenExam.examTakerActive = true;
+				this.fullscreenExam.hasStartedExam = true;
 				socket.emit('startExam', exam.examId);
 			},
 			closeExamTaker() {
 				this.fullscreenExam.examTakerActive = false;
+				setTimeout(() => this.resetExamTaker(), 300);
 			},
 			hostExam() {
 				socket.emit('hostExam', this.fullscreenExam.examObj.examId);

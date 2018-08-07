@@ -83,9 +83,11 @@ const Sheet = {
 				this.$el.style.transitionTimingFunction = 'ease-out'; // will be undone in show()
 				this.$el.style.transitionDuration = '0.15s';
 			}
-			this.open = false;
-			this.resetPosition();
-			events.emit('hideModalOverlay');
+			if (this.open) {
+				this.open = false;
+				this.resetPosition();
+				events.emit('hideModalOverlay');
+			}
 		},
 		show() {
 			this.$el.style.removeProperty('transition-timing-function'); // reset any linear easing from hide()
