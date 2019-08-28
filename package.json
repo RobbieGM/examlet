@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "babel-eslint": "^10.0.3",
     "express": "^4.16.3",
     "google-auth-library": "^1.6.1",
     "lowdb": "^1.0.0",
@@ -17,9 +18,9 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
+    "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
-    "@vue/cli-service": "^3.0.0-rc.5",
+    "@vue/cli-service": "^3.11.0",
     "vue-template-compiler": "^2.5.16"
   },
   "browserslist": [
