@@ -12,7 +12,7 @@
     "express": "^4.16.3",
     "google-auth-library": "^1.6.1",
     "lowdb": "^1.0.0",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.0.3",
     "socket.io": "^2.1.1",
     "vue": "^2.5.16"
